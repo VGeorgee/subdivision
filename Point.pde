@@ -7,6 +7,7 @@ class Point  {
         this.y = (int)y;        
     }
 
+
     public int getX(){
         return this.x;
     }
@@ -21,6 +22,11 @@ class Point  {
 
     private int squared(int value){
         return value * value;
+    }
+    
+    boolean equals(Object o){
+      Point p = (Point) o;
+      return this.x == p.getX() && this.y == p.getY();
     }
 
     String toString(){
