@@ -43,30 +43,12 @@ class Shape {
     }
 
     private Point[] getSubdivided(Point a, Point b, double wA, double wB){
-        Point[] points = new Point[2];
-
-        double axa = a.getX() * wA;
-        double aya = a.getY() * wA;
-        
-        double bxa = b.getX() * wA;
-        double bya = b.getY() * wA;
-
-        double axb = a.getX() * wB;
-        double ayb = a.getY() * wB;
-        
-        double bxb = b.getX() * wB;
-        double byb = b.getY() * wB;
-  
-        double pax = axa + bxb;
-        double pay = aya + byb;
-        
-        double pbx = axb + bxa;
-        double pby = ayb + bya;
+        double pax = a.getX() * wA + b.getX() * wB;
+        double pay =  a.getY() * wA + b.getY() * wB;    
+        double pbx = a.getX() * wB + b.getX() * wA;
+        double pby = a.getY() * wB + b.getY() * wA;
     
-        points[0] = new Point(pbx, pby);
-        points[1] = new Point(pax, pay);
-        
-        return points;
+        return new Point[] {new Point(pbx, pby), new Point(pax, pay)};
     }
 
   void reset(){
