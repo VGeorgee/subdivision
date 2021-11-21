@@ -23,8 +23,7 @@ public class CatmullClark {
     public Mesh reCalculate(Mesh original){
 
         this.original = original;
-        this.newMesh = new Mesh();
-        this.newMesh.isQuadratic = true;
+        this.newMesh = new Mesh(true);
 
         beforeAlgorithmStarts();
         computeNewFacePoints();

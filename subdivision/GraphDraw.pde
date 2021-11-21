@@ -36,4 +36,8 @@ class GraphDraw {
     public void applyCatmullClark(){
         view.applyCatmullClark();
     }
+    
+    public void applyDooSabin(){
+        view.applyCatmullClark();
+    }
 }

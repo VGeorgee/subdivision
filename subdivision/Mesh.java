@@ -55,7 +55,6 @@ public class Mesh {
         for(Face face: this.faces){
             int vi[] = face.vertexIndices;
 
-
             for(int i = 0; i < length; i++) {
                 Vertex vertex = this.vertices.get(vi[i]);
                 vertex.valence++;

@@ -4,7 +4,7 @@ float ry;
   //D:\\GIT\\Processing\\subdivision3d\\subdivision\\cube.obj
 public void setup() {
   size(640, 360, P3D);
-  FileReader fr = new FileReader("D:\\GIT\\Processing\\subdivision3d\\subdivision\\cube.obj");
+  FileReader fr = new FileReader("C:\\Users\\Kiri\\Desktop\\dev\\subdivision\\subdivision\\cube.obj");
   Mesh mesh = fr.readFile();
   mesh.initialize();
   gd = new GraphDraw(mesh);
@@ -21,6 +21,8 @@ public void draw() {
       cameraMove -= 10;
     } else if (key == 'g') {
       gd.applyCatmullClark();
+    } else if (key == 'd') {
+      gd.applyDooSabin();
     } else if(key == 'r') {
       gd.revert();
     }

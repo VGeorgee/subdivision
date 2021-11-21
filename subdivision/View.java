@@ -5,6 +5,7 @@ public class View {
     private Stack<Mesh> meshes;
     private Butterfly butterfly;
     private CatmullClark catmullClark;
+    private DooSabin dooSabin;
 
 
     private static View INSTANCE = null;
@@ -40,5 +41,9 @@ public class View {
     public void applyCatmullClark(){
         meshes.push(catmullClark.reCalculate(getMesh()));
     }
-
+    
+    
+    public void applyDooSabin(){
+        meshes.push(dooSabin.reCalculate(getMesh()));
+    }
 }
