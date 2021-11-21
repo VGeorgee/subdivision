@@ -35,8 +35,6 @@ public class Mesh {
         HashMap<String, Integer> halfEdgeID = new HashMap<>();
 
         int length = isQuadratic ? 4 : 3;
-        System.out.println(length);
-        System.out.println("KEYS START");
 
         for(Face face: this.faces){
             for(int i = 0; i < 4; i++){
@@ -46,7 +44,6 @@ public class Mesh {
                 this.vertices.get(face.vertexIndices[i]).clear();
             }
         }
-        System.out.println("KEYS END");
 
         this.halfEdges = new ArrayList<>();
         this.halfEdges.ensureCapacity(halfEdgeID.size()+1);
@@ -57,20 +54,6 @@ public class Mesh {
         int fi = 0;
         for(Face face: this.faces){
             int vi[] = face.vertexIndices;
-/*
-            for(int i = 0; i < 4; i++) {
-                Vertex vertex = this.vertices.get(vi[i]);
-                vertex.valence++;
-
-                int heID = halfEdgeID.get(vi[i] + " " + vi[(i + 1) % 4]);
-                int hePID = halfEdgeID.get(vi[(i + 1) % 4] + " " + vi[i]);
-                int heNext = halfEdgeID.get(vi[(i + 1) % 4] + " " + vi[(i + 2) % 4]);
-                int hePrev = halfEdgeID.get(vi[(i + 3) % 4] + " " + vi[i]);
-                vertex.halfEdgeIndices.add(heID);
-                System.out.println(heID);
-                this.halfEdges.set(heID, new HalfEdge(hePID, fi++, vi[i], heNext, hePrev));
-                face.halfEdgeIndices[i] = halfEdgeID.get(vi[i] + " " + vi[(i + 1) % 4]);
-            }*/
 
 
             for(int i = 0; i < length; i++) {
@@ -81,13 +64,9 @@ public class Mesh {
                     int heID = halfEdgeID.get(vi[i] + " " + vi[(i + 1) % length]);
                     vertex.halfEdgeIndices.add(heID);
 
-                    System.out.println((i + 1) % length + " - " + i);
-                    System.out.println((i + 1) % length + " " + i);
-
                     int hePID = halfEdgeID.get(vi[(i + 1) % length] + " " + vi[i]);
                     int heNext = halfEdgeID.get(vi[(i + 1) % length] + " " + vi[(i + 2) % length]);
                     int hePrev = halfEdgeID.get(vi[(i + (length - 1)) % length] + " " + vi[i]);
-                    System.out.println(heID);
 
                     this.halfEdges.set(heID, new HalfEdge(hePID, fi, vi[i], heNext, hePrev));
                     //face.halfEdgeIndices[i] = heID;

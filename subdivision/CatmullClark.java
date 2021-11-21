@@ -1,14 +1,15 @@
 
 
+
 public class CatmullClark {
     Mesh original;
     Mesh newMesh;
     double[] weights;
 
-    int V; // # old vertices
-    int F; // # old faces
-    int H; // # of half-edges
-    int E; // # of edges
+    int V;
+    int F;
+    int H;
+    int E;
     int[] EM;
 
     public CatmullClark(){
@@ -66,7 +67,6 @@ public class CatmullClark {
         for(int i = 0; i < original.halfEdges.size(); i++){
             if(EM[i]==-1){
                 int faceIndex = original.halfEdges.get(i).faceIndex;
-                System.out.println("FACEINDEX::: " + faceIndex);
 
                 int v1 = original.halfEdges.get(i).startVertexIndex;
                 int v2 = original.halfEdges.get(original.halfEdges.get(i).next).startVertexIndex;
@@ -75,9 +75,7 @@ public class CatmullClark {
                 Vertex edge2 = original.vertices.get(v2);
 
                 int edgePair = original.halfEdges.get(i).pairHalfEdgeIndex;
-                System.out.println("FACE2 " + faceIndex);
                 Vertex face1 = getFacePoint(faceIndex );
-                System.out.println("FACE3 " + faceIndex);
 
                 Vertex face2 = getFacePoint(original.halfEdges.get(edgePair).faceIndex);
 
@@ -114,11 +112,8 @@ public class CatmullClark {
             Q = Q.divide((double)n);
             R = R.divide((double)n);
 
-
             Vertex newVertex = (Q.add(R.multiply(2)).add(S.multiply((double)n - 3))).divide((double)n);
             newMesh.vertices.add(newVertex);
-
-
 
             int[] v = new int[4];
 
@@ -135,8 +130,6 @@ public class CatmullClark {
                 Face face = new Face(v[0], v[1], v[2], v[3]);
                 newMesh.faces.add(face);
             }
-
         }
     }
-
 }

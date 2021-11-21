@@ -1,6 +1,6 @@
 
+import javax.swing.*;
 import java.util.ArrayList;
-
 public class Butterfly {
     private Mesh original;
     private Mesh reCalculated;

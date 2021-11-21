@@ -1,5 +1,4 @@
 
-
 public class HalfEdge {
     int pairHalfEdgeIndex;
     int faceIndex;
