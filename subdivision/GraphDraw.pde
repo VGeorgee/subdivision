@@ -1,8 +1,8 @@
 
 class GraphDraw {
  View view;
- public GraphDraw(View view){
-   this.view = view;
+ public GraphDraw(Mesh original){
+   this.view = View.getInstance(original);
  }
  
  public void draw(){
@@ -25,4 +25,15 @@ class GraphDraw {
       endShape();
     }
  }
+ 
+ public void revert(){
+   view.revert();
+ }
+     public void applyButterfly(){
+        view.applyButterfly();
+    }
+
+    public void applyCatmullClark(){
+        view.applyCatmullClark();
+    }
 }

@@ -7,19 +7,9 @@ public void setup() {
   FileReader fr = new FileReader("D:\\GIT\\Processing\\subdivision3d\\subdivision\\cube.obj");
   Mesh mesh = fr.readFile();
   mesh.initialize();
-  
-  View.getInstance(mesh);
-  
-    System.out.println(mesh.vertices.size() + " " + mesh.faces.size() + " " + mesh.halfEdges.size());
-  gd = new GraphDraw(view);
-  gd.draw(); 
-  //view.applyButterfly();
-  mesh = view.getMesh();
-  background(255);
-  
-  gd.draw(); 
-    System.out.println(mesh.vertices.size() + " " + mesh.faces.size() + " " + mesh.halfEdges.size());
+  gd = new GraphDraw(mesh);
 }
+
 int cameraMove = 0;
 
 public void draw() {
@@ -30,14 +20,14 @@ public void draw() {
     } else if (key == 'a') {
       cameraMove -= 10;
     } else if (key == 'g') {
-      view.applyCatmullClark();
+      gd.applyCatmullClark();
     } else if(key == 'r') {
-      view.revert();
+      gd.revert();
     }
   } 
   //rect(25, 25, 50, 50);
   background(255);
-  camera(0, 0, 0, width/2, height/2, cameraMove, 0, 1, 0);
+  camera(0, cameraMove, 0, width/2, height/2, 0, 0, 1, 0);
   gd.draw();
   
   /*
