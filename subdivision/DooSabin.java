@@ -50,8 +50,6 @@ public class DooSabin {
     void computeNewEdgeVertices() {
         for(int i = 0; i < mesh.halfEdges.size(); i++){
             if(EM[i] == -1){
-                int faceIndex = mesh.halfEdges.get(i).faceIndex;
-
                 int v1 = mesh.halfEdges.get(i).startVertexIndex;
                 int v2 = mesh.halfEdges.get(mesh.halfEdges.get(i).next).startVertexIndex;
 
@@ -72,10 +70,10 @@ public class DooSabin {
             Vertex S = mesh.vertices.get(i);
             int n = S.valence;
 
-            Vertex a = new Vertex();
-            Vertex b = new Vertex();
-            Vertex c = new Vertex();
-            Vertex d = new Vertex();
+            Vertex a;
+            Vertex b;
+            Vertex c;
+            Vertex d;
 
             for (int j = 0; j < n; ++j) {
                 int heIndex = S.halfEdgeIndices.get(j);
@@ -95,9 +93,6 @@ public class DooSabin {
             for (int j = 0; j < n; ++j) {
                 int heIndex = S.halfEdgeIndices.get(j);
                 int f = mesh.halfEdges.get(heIndex).faceIndex;
-
-                int v1 = mesh.halfEdges.get(heIndex).startVertexIndex;
-                int v2 = mesh.halfEdges.get(mesh.halfEdges.get(heIndex).next).startVertexIndex;
 
                 v[0] = newMesh.vertices.size() - 1;
                 v[1] = EM[heIndex];

@@ -26,18 +26,18 @@ class GraphDraw {
     }
  }
  
- public void revert(){
-   view.revert();
- }
-     public void applyButterfly(){
-        view.applyButterfly();
-    }
-
-    public void applyCatmullClark(){
-        view.applyCatmullClark();
-    }
-    
-    public void applyDooSabin(){
-        view.applyCatmullClark();
-    }
+   public void revert(){
+     view.revert();
+   }
+   public void applyButterfly(){
+      view.applyButterfly();
+  }
+  
+  public void applyCatmullClark(){
+      view.applyCatmullClark();
+  }
+  
+  public void applyDooSabin(){
+      view.applyCatmullClark();
+  }
 }

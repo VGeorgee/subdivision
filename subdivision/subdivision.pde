@@ -1,6 +1,10 @@
+import peasy.*;
+
 PShape rocket;
 GraphDraw gd;
 float ry;
+PeasyCam cam;
+
   //D:\\GIT\\Processing\\subdivision3d\\subdivision\\cube.obj
 public void setup() {
   size(640, 360, P3D);
@@ -8,18 +12,17 @@ public void setup() {
   Mesh mesh = fr.readFile();
   mesh.initialize();
   gd = new GraphDraw(mesh);
+  cam = new PeasyCam(this, width/2, height/2, 0, 250);
+  cam.setMinimumDistance(250);
+  cam.setMaximumDistance(400);
 }
 
-int cameraMove = 0;
+int cameraX = 0;
 
 public void draw() {
   delay(50);
   if (keyPressed) {
-    if (key == 'b') {
-      cameraMove += 10;
-    } else if (key == 'a') {
-      cameraMove -= 10;
-    } else if (key == 'g') {
+    if (key == 'g') {
       gd.applyCatmullClark();
     } else if (key == 'd') {
       gd.applyDooSabin();
@@ -27,20 +30,7 @@ public void draw() {
       gd.revert();
     }
   } 
-  //rect(25, 25, 50, 50);
+  
   background(255);
-  camera(0, cameraMove, 0, width/2, height/2, 0, 0, 1, 0);
   gd.draw();
-  
-  /*
-  background(0);
-  lights();
-  translate(width/2, height/2 + 100, -200);
-  scale(64.0);
-  rotateZ(PI);
-  rotateY(ry);
-  shape(rocket);
-  
-  ry += 0.02;
-*/
 }
