@@ -48,6 +48,9 @@ public class Vertex {
     public Vertex divide(Vertex v){
         return new Vertex(this.vertex.divide(v.vertex), halfEdgeIndex);
     }
+    public Vertex divide(Double d){
+        return new Vertex(this.vertex.divide(d), halfEdgeIndex);
+    }
 
     public Point3D getVertex() {
         return vertex;

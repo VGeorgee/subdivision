@@ -1,4 +1,5 @@
 
+
 import java.util.Stack;
 
 public class View {
@@ -22,5 +23,5 @@ public class View {
     public void applyButterfly(){
         meshes.push(butterfly.reCalculate(getMesh()));
     }
-    
+
 }

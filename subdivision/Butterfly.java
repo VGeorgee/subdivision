@@ -1,5 +1,4 @@
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class Butterfly {
@@ -22,12 +21,14 @@ public class Butterfly {
        // this.reCalculated.vertices.addAll(original.vertices);
        // this.reCalculated.halfEdges.addAll(original.halfEdges);/// ???
         indices = new ArrayList<>();
-        for(HalfEdge halfEdge: original.halfEdges){
+        for(int i = 0; i < original.halfEdges.size();i++){
             indices.add(-1);
         }
+
         generateEdgeVertices();
         connectEdgeVertices();
         this.original.initialize();
+
         return this.original;
     }
 
@@ -62,7 +63,7 @@ public class Butterfly {
 
                 this.original.vertices.add(newVertex);
                 indices.set(i, original.vertices.size() - 1);
-                indices.set(edge1_2.pairHalfEdgeIndex, original.vertices.size() - 1);
+                indices.set(original.halfEdges.get(i).pairHalfEdgeIndex, original.vertices.size() - 1);
 
             }
         }
@@ -70,17 +71,33 @@ public class Butterfly {
 
 
     private void connectEdgeVertices() {
-        original.faces.clear();
+        original.faces = new ArrayList<>();
         for(int i = 0; i < original.halfEdges.size(); i += 3){
-            HalfEdge halfEdge = original.halfEdges.get(i);
+            HalfEdge edge = original.halfEdges.get(i);
 
-            Face f1 = new Face(halfEdge.startVertexIndex, indices.get(i), indices.get(halfEdge.prev));
+            Face f1 = new Face(
+                    edge.startVertexIndex,
+                    indices.get(i),
+                    indices.get(edge.prev)
+            );
 
-            Face f2 = new Face(indices.get(i), original.halfEdges.get(halfEdge.next).startVertexIndex, indices.get(halfEdge.next));
+            Face f2 = new Face(
+                    indices.get(i),
+                    original.halfEdges.get(edge.next).startVertexIndex,
+                    indices.get(edge.next)
+            );
 
-            Face f3 = new Face(original.halfEdges.get(halfEdge.prev).startVertexIndex, indices.get(halfEdge.prev), indices.get(halfEdge.next));
+            Face f3 = new Face(
+                    original.halfEdges.get(edge.prev).startVertexIndex,
+                    indices.get(edge.prev),
+                    indices.get(edge.next)
+            );
 
-            Face f4 = new Face(indices.get(halfEdge.prev), indices.get(i), indices.get(halfEdge.next));
+            Face f4 = new Face(
+                    indices.get(edge.prev),
+                    indices.get(i),
+                    indices.get(edge.next)
+            );
 
             this.original.faces.add(f1);
             this.original.faces.add(f2);
