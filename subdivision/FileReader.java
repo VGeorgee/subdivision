@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class FileReader {
     private Scanner file;
+    private boolean isQuadratic;
 
     public FileReader(String fileName){
         try{
@@ -31,7 +32,7 @@ public class FileReader {
             }
 
         }
-
+        mesh.isQuadratic = isQuadratic;
         return mesh;
     }
 
@@ -50,14 +51,34 @@ public class FileReader {
 
     private Face convertToFace(String line){
         String[] tokens = line.split(" ");
-        if(tokens.length != 5) {
-            System.out.println(line);
+
+        if(tokens.length == 5){
+            isQuadratic = true;
+            return buildQuadraticFace(tokens);
         }
+        isQuadratic = false;
+        return buildFace(tokens);
+    }
+
+    private Face buildQuadraticFace(String [] tokens){
         int a = Integer.parseInt(tokens[1]) - 1;
         int b = Integer.parseInt(tokens[2]) - 1;
         int c = Integer.parseInt(tokens[3]) - 1;
         int d = Integer.parseInt(tokens[4]) - 1;
+        // TODO! Also run by getVertex()
         return new Face(a, b, c, d);
+    }
+
+    private Face buildFace(String [] tokens){
+        int a = getVertex(tokens[1]);
+        int b = getVertex(tokens[2]);
+        int c = getVertex(tokens[3]);
+        return new Face(a, b, c);
+    }
+
+    private int getVertex(String faceToken){
+        String[] subTokens = faceToken.split("/");
+        return Integer.parseInt(subTokens[0]);
     }
 
 

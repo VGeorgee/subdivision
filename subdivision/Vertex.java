@@ -1,5 +1,4 @@
 
-
 import java.util.ArrayList;
 
 public class Vertex {
@@ -29,6 +28,10 @@ public class Vertex {
         halfEdgeIndices = new ArrayList<>();
     }
 
+    public void clear(){
+        halfEdgeIndices.clear();
+    }
+
 
     public Vertex add(Vertex v) {
         return new Vertex(this.vertex.add(v.vertex), halfEdgeIndex);
@@ -36,6 +39,10 @@ public class Vertex {
 
     public Vertex multiply(Vertex v){
         return new Vertex(this.vertex.multiply(v.vertex), halfEdgeIndex);
+    }
+
+    public Vertex multiply(double d){
+        return new Vertex(this.vertex.multiply(d), halfEdgeIndex);
     }
 
     public Vertex divide(Vertex v){

@@ -20,6 +20,7 @@ public class Face {
         halfEdgeIndices = new int[4];
     }
 
+
     @Override
     public String toString() {
         return "Face{" +

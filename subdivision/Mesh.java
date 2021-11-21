@@ -4,11 +4,10 @@ import java.util.HashMap;
 
 public class Mesh {
     ArrayList<Point3D> originals;
-
     ArrayList<Vertex> vertices;
     ArrayList<Face> faces;
     ArrayList<HalfEdge> halfEdges;
-
+    boolean isQuadratic;
 
     public Mesh(){
         originals = new ArrayList<>();
@@ -17,12 +16,9 @@ public class Mesh {
         halfEdges = new ArrayList<>();
     }
 
-    public Mesh(ArrayList<Point3D> list ){
-        originals = list;
-    }
-
-    public void setOriginals(ArrayList<Point3D> points){
-        originals = points;
+    public Mesh(boolean isQuadratic){
+        this();
+        this.isQuadratic = isQuadratic;
     }
 
     public void addVertex(Vertex v){
@@ -37,12 +33,22 @@ public class Mesh {
     public void initialize(){
         HashMap<String, Integer> halfEdgeID = new HashMap<>();
 
+        int length = isQuadratic ? 4 : 3;
+        System.out.println(length);
+        System.out.println("KEYS START");
         for(Face face: this.faces){
-            for(int i = 0; i < 4; i++){
-                String key = face.vertexIndices[i] + " " + face.vertexIndices[(i+1) % 4];
+            for(int i = 0; i < length; i++){
+                String key = face.vertexIndices[i] + " " + face.vertexIndices[(i+1) % length];
+                System.out.println(key);
                 halfEdgeID.put(key, halfEdgeID.size());
+
+
+                this.vertices.get(face.vertexIndices[i]).valence = 0;
+                this.vertices.get(face.vertexIndices[i]).clear();
+
             }
         }
+        System.out.println("KEYS END");
 
         this.halfEdges.ensureCapacity(halfEdgeID.size()+1);
         for(int i = 0; i < halfEdgeID.size(); i++){
@@ -53,23 +59,23 @@ public class Mesh {
         for(Face face: this.faces){
             int vi[] = face.vertexIndices;
 
-
-            for(int i = 0; i < 4; i++) {
+            for(int i = 0; i < length; i++) {
                 Vertex vertex = this.vertices.get(vi[i]);
                 vertex.valence++;
 
-                int heID = halfEdgeID.get(vi[i] + " " + vi[(i + 1) % 4]);
-                int hePID = halfEdgeID.get(vi[(i + 1) % 4] + " " + vi[i]);
-                int heNext = halfEdgeID.get(vi[(i + 1) % 4] + " " + vi[(i + 2) % 4]);
-                int hePrev = halfEdgeID.get(vi[(i + 3) % 4] + " " + vi[i]);
-                vertex.halfEdgeIndices.add(heID);
-                System.out.println(heID);
-                this.halfEdges.set(heID, new HalfEdge(hePID, fi++, vi[i], heNext, hePrev));
+                try {
+                    int heID = halfEdgeID.get(vi[i] + " " + vi[(i + 1) % length]);
+                    System.out.println(vi[(i + 1) % length] + " " + vi[i]);
+                    int hePID = halfEdgeID.get(vi[(i + 1) % length] + " " + vi[i]);
+                    int heNext = halfEdgeID.get(vi[(i + 1) % length] + " " + vi[(i + 2) % length]);
+                    int hePrev = halfEdgeID.get(vi[(i + (length - 1)) % length] + " " + vi[i]);
+                    vertex.halfEdgeIndices.add(heID);
+                    System.out.println(heID);
+                    this.halfEdges.set(heID, new HalfEdge(hePID, fi++, vi[i], heNext, hePrev));
+                } catch (Exception ex){
+                    System.out.println(ex);
+                }
             }
-
-
-
-
         }
     }
 

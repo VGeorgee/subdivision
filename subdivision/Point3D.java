@@ -1,4 +1,5 @@
 
+
 public class Point3D {
     private double x;
     private double y;
@@ -43,7 +44,7 @@ public class Point3D {
         return new Point3D(x, y, z);
     }
 
-  public double getX() {
+    public double getX() {
         return x;
     }
 
@@ -54,8 +55,7 @@ public class Point3D {
     public double getZ() {
         return z;
     }
-    
-    
+
     @Override
     public String toString() {
         return "Point3D{" +
