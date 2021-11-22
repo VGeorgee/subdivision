@@ -28,9 +28,20 @@ public void draw() {
       gd.applyDooSabin();
     } else if(key == 'r') {
       gd.revert();
+    } else if(key == 'o'){
+      selectFolder("Select a folder to process:", "folderSelected");
     }
   } 
   
   background(255);
   gd.draw();
+}
+
+
+void folderSelected(File selection) {
+  if (selection == null) {
+    println("Window was closed or the user hit cancel.");
+  } else {
+    println("User selected " + selection.getAbsolutePath());
+  }
 }

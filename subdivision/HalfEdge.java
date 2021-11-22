@@ -11,6 +11,12 @@ public class HalfEdge {
         this.pairHalfEdgeIndex = -1;
     }
 
+
+    public  HalfEdge(int index){
+        pairHalfEdgeIndex = index;
+    }
+
+
     public HalfEdge(int pairHalfEdgeIndex, int faceIndex, int startVertexIndex, int next, int prev) {
         this.pairHalfEdgeIndex = pairHalfEdgeIndex;
         this.faceIndex = faceIndex;

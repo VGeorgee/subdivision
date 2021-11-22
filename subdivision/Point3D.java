@@ -1,5 +1,6 @@
 
 
+
 public class Point3D {
     private double x;
     private double y;
@@ -58,10 +59,6 @@ public class Point3D {
 
     @Override
     public String toString() {
-        return "Point3D{" +
-                "x=" + x +
-                ", y=" + y +
-                ", z=" + z +
-                '}';
+        return x + " " + y + " " + z;
     }
 }
