@@ -10,9 +10,9 @@ class GraphDraw {
     translate(width/2, height/2, 0);
     lights();
     //scale(8.0);
-    int scale = 50;
+    int scale = 80;
     Mesh mesh = view.getMesh();
-    System.out.println(mesh.vertices.size() + " " + mesh.faces.size() + " " + mesh.halfEdges.size());
+    //System.out.println(mesh.vertices.size() + " " + mesh.faces.size() + " " + mesh.halfEdges.size());
     for(Face face: mesh.faces){
       fill(0);
       stroke(50);
@@ -39,5 +39,9 @@ class GraphDraw {
   
   public void applyDooSabin(){
       view.applyCatmullClark();
+  }
+  
+  public Mesh getMesh(){
+    return view.getMesh();
   }
 }

@@ -7,8 +7,8 @@ PeasyCam cam;
 
   //D:\\GIT\\Processing\\subdivision3d\\subdivision\\cube.obj
 public void setup() {
-  size(640, 360, P3D);
-  FileReader fr = new FileReader("C:\\Users\\Kiri\\Desktop\\dev\\subdivision\\subdivision\\cube.obj");
+  size(1024, 768, P3D);
+  FileReader fr = new FileReader("D:\\GIT\\Processing\\subdivision3d\\subdivision\\cube.obj");
   Mesh mesh = fr.readFile();
   mesh.initialize();
   gd = new GraphDraw(mesh);
@@ -19,20 +19,32 @@ public void setup() {
 
 int cameraX = 0;
 
-public void draw() {
-  delay(50);
-  if (keyPressed) {
-    if (key == 'g') {
-      gd.applyCatmullClark();
-    } else if (key == 'd') {
-      gd.applyDooSabin();
-    } else if(key == 'r') {
-      gd.revert();
-    } else if(key == 'o'){
-      selectFolder("Select a folder to process:", "folderSelected");
+boolean[] keysPressed = new boolean[256];
+
+boolean isKeyPressed(char id){
+  boolean isPressed = false;
+  if(keyPressed){
+    if(key == id){
+      keysPressed[id] = true;
     }
-  } 
-  
+  } else {
+    isPressed = keysPressed[id];
+    keysPressed[id] = false;
+  }
+  return isPressed;
+}
+
+public void draw() {
+  if (isKeyPressed('g')) {
+    gd.applyCatmullClark();
+  } else if (isKeyPressed('d')) {
+    gd.applyDooSabin();
+  } else if(isKeyPressed('r')) {
+    gd.revert();
+  } else if(isKeyPressed('o')){
+    selectFolder("Select a folder to process:", "folderSelected");
+  }
+ 
   background(255);
   gd.draw();
 }
@@ -43,5 +55,7 @@ void folderSelected(File selection) {
     println("Window was closed or the user hit cancel.");
   } else {
     println("User selected " + selection.getAbsolutePath());
+    Export.exportToObj(gd.getMesh(), selection.getAbsolutePath(), "export");
+    
   }
 }
